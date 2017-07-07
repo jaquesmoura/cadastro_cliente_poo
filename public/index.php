@@ -1,5 +1,7 @@
 <?php
-require_once "Cliente.php";
+require_once "ClientePF.php";
+require_once "ClientePJ.php";
+require_once "ListaDeClientes.php";
 
 $params = $_GET;
 
@@ -9,24 +11,12 @@ if (array_key_exists('ord', $params)){
 else
 {
 	$ord = 1;
-}
-
-Cliente::$client_list = array ('1' => new Cliente(1,"Jaques Moura","385.222.682-15","Av. Parintins 489 - Cachoeirinha"),
-						'2' => new Cliente(2,"Lucilana Moura","222.222.222-22","Av. Parintins 489 - Cachoeirinha"),
-						'3' => new Cliente(3,"Evelyn Moura","333.222.222-22","Av. Parintins 489 - Cachoeirinha"),
-						'4' => new Cliente(4,"Emanuele Moura","444.222.222-22","Av. Parintins 489 - Cachoeirinha"),
-						'5' => new Cliente(5,"Kaleb Santos","555.222.222-22","Av. Dois 543 - Centro"),
-						'6' => new Cliente(6,"Fred Krueger","666.222.222-22","Av. Dois 543 - Centro"),
-						'7' => new Cliente(7,"Jason Mraz","777.222.222-22","Av. Itacolomy 200 - Cidade Nova"),
-						'8' => new Cliente(8,"Jackson Five","888.222.222-22","Av. Wakusese 111 - Flores"),
-						'9' => new Cliente(9,"Luana Piovani","999.222.222-22","Av. Wandyn 2389 - Flores"),
-						'10' => new Cliente(10,"Maysa Carvalho","111.222.222-22","Av. Conte Teles 999 - Aleixo")
-					 ); 
+} 
 
 if ($ord == '1'){
-	asort(Cliente::$client_list);
+	asort(ListaDeClientes::$client_list);
 }else{
-	arsort(Cliente::$client_list);
+	arsort(ListaDeClientes::$client_list);
 }
 
 ?>
@@ -68,6 +58,8 @@ if ($ord == '1'){
                                 <thead>
                                         <tr>
                                                 <th>Nome</th>
+                                                <th>Tipo Pessoa</th>
+                                                <th>Classificacao</th>
                                                 <th>
                                                 <a href="index.php?ord=1" class="btn btn-success btn-xs">Ord Asc</a>
                                                 </th>
@@ -77,11 +69,14 @@ if ($ord == '1'){
                                         </tr>
                                 </thead>
                                 <tbody>
-                                        <?php foreach (Cliente::$client_list as $client){ ?> 
+                                		<!--<?php print_r(ListaDeClientes::$client_list); ?>-->
+                                        <?php foreach (ListaDeClientes::$client_list as $client){ ?> 
                                         <tr>
-                                                <td><?= $client->nome ?></td>
+                                                <td><?= $client->getNome() ?></td>
+                                                <td><?= $client->getTipoPessoa() ?></td>
+                                                <td><?= $client->getClassificacao() ?></td>
                                                 <td>
-                                                <a href="visualiza.php?id=<?= $client->id ?>" class="btn btn-success btn-xs">Ver</a>
+                                                <a href="visualiza.php?id=<?= $client->getId() ?>" class="btn btn-success btn-xs">Ver</a>
                                                 </td>
                                         </tr>
                                         <?php } ?>
